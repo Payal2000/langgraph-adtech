@@ -1,4 +1,4 @@
-# langgraph-adtech
+# Langgraph-adtech
 
 Production-grade ad bidding intelligence platform — a LangGraph multi-agent system that recommends, optimizes, and simulates programmatic auction strategies in real time.
 
