@@ -8,6 +8,7 @@ import {
   Settings, ChevronDown, Calendar, Zap,
 } from 'lucide-react';
 import clsx from 'clsx';
+import { ChatAgent } from '@/components/ui/ChatAgent';
 
 // ─────────────────────────────────────────
 // NAV STRUCTURE
@@ -232,6 +233,8 @@ export function Shell({ children }: { children: React.ReactNode }) {
           {children}
         </main>
       </div>
+      {/* Global AI chat agent — accessible on every page */}
+      <ChatAgent />
     </div>
   );
 }
