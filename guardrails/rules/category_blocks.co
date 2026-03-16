@@ -1,0 +1,13 @@
+define flow check category blocks
+  """Block ad categories not permitted by platform policy."""
+  user ask about bidding for gambling ads
+    bot refuse with "Gambling advertising is not supported on this platform."
+
+define flow check category blocks
+  user ask about bidding for adult content
+    bot refuse with "Adult content advertising is not supported on this platform."
+
+define flow check response compliance
+  """Ensure agent responses don't recommend illegal bidding practices."""
+  bot want to say something about bid manipulation
+    bot refuse with "I cannot recommend bid manipulation strategies."

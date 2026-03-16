@@ -1,0 +1,34 @@
+version: 2
+
+sources:
+  - name: raw
+    database: ad_bidding
+    schema: RAW
+    tables:
+      - name: auction_events
+        description: Raw auction events from Kafka Snowflake connector
+        columns:
+          - name: event_id
+            tests: [not_null, unique]
+          - name: occurred_at
+            tests: [not_null]
+          - name: slot_id
+            tests: [not_null]
+          - name: clearing_price_cpm
+            tests: [not_null]
+
+      - name: competitor_bids
+        description: Competitor bid events from SEMrush + ad platforms
+        columns:
+          - name: event_id
+            tests: [not_null, unique]
+          - name: slot_id
+            tests: [not_null]
+
+      - name: budget_snapshots
+        description: Budget update events from campaign manager
+        columns:
+          - name: event_id
+            tests: [not_null, unique]
+          - name: campaign_id
+            tests: [not_null]

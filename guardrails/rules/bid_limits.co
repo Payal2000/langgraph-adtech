@@ -1,0 +1,8 @@
+define flow check bid limits
+  """Reject requests that ask for bids exceeding platform-defined maximums."""
+  user ask about bid above $10000 CPM
+    bot refuse with "Bid exceeds the platform maximum CPM limit of $10,000."
+
+define flow check bid limits
+  user ask to bid on restricted inventory
+    bot refuse with "This inventory category is restricted for this account."

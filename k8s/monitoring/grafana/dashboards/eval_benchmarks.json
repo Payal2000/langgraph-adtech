@@ -1,0 +1,17 @@
+{
+  "title": "Eval Benchmarks",
+  "uid": "eval-bench-001",
+  "tags": ["eval", "mlops"],
+  "panels": [
+    {
+      "title": "Benchmark Trajectory Score (by category)",
+      "type": "timeseries",
+      "targets": [{"expr": "histogram_quantile(0.50, rate(benchmark_trajectory_score_bucket[1d]))"}]
+    },
+    {
+      "title": "Tool Call Accuracy",
+      "type": "stat",
+      "targets": [{"expr": "avg(benchmark_trajectory_score_sum / benchmark_trajectory_score_count)"}]
+    }
+  ]
+}

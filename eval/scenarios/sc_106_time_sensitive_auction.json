@@ -1,0 +1,31 @@
+{
+  "scenario_id": "sc_106",
+  "category": "time_sensitive",
+  "description": "Flash sale: must win auctions in next 2 hours regardless of cost",
+  "user_message": "We have a flash sale ending in 2 hours. I need to win as many auctions as possible on slots slot_video_001 and slot_search_010. Budget: $1000. Aggressive mode.",
+  "budget_remaining": 1000.0,
+  "active_slots": [
+    {
+      "slot_id": "slot_video_001",
+      "platform": "google",
+      "placement": "video",
+      "expected_impressions": 10000,
+      "floor_price": 3.00
+    },
+    {
+      "slot_id": "slot_search_010",
+      "platform": "google",
+      "placement": "search",
+      "expected_impressions": 8000,
+      "floor_price": 1.50
+    }
+  ],
+  "audience_segments": ["flash_sale_intent", "high_value"],
+  "ground_truth": {
+    "expected_tools": ["competitor_analyzer", "simulation_runner", "bid_calculator"],
+    "expected_intent": "simulation",
+    "optimal_bids": {"slot_video_001": 7.50, "slot_search_010": 3.20},
+    "acceptable_deviation_pct": 0.25,
+    "reasoning": "Time-sensitive: bid at p75 competitor level to maximise win rate. Run simulation to confirm clearing price distribution before committing."
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "title": "Infrastructure",
+  "uid": "infra-001",
+  "tags": ["infra", "kubernetes"],
+  "panels": [
+    {
+      "title": "API Pod CPU Usage",
+      "type": "timeseries",
+      "targets": [{"expr": "rate(container_cpu_usage_seconds_total{namespace='prod',pod=~'ad-bidding-api.*'}[5m])"}]
+    },
+    {
+      "title": "API Pod Memory Usage",
+      "type": "timeseries",
+      "targets": [{"expr": "container_memory_usage_bytes{namespace='prod',pod=~'ad-bidding-api.*'}"}]
+    },
+    {
+      "title": "Kafka Consumer Lag",
+      "type": "timeseries",
+      "targets": [{"expr": "kafka_consumergroup_lag"}]
+    },
+    {
+      "title": "Redis Memory Usage",
+      "type": "stat",
+      "targets": [{"expr": "redis_memory_used_bytes"}]
+    }
+  ]
+}

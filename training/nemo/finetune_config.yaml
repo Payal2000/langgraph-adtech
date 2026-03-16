@@ -1,0 +1,50 @@
+# NeMo fine-tuning config for the Simulation Agent
+# Runs on SageMaker via training/sagemaker/pipeline.py
+
+name: ad_bidding_simulation_v1
+
+trainer:
+  devices: 1
+  num_nodes: 1
+  max_epochs: 3
+  val_check_interval: 0.5
+  gradient_clip_val: 1.0
+
+model:
+  restore_from_path: null                       # base model checkpoint path
+  peft:
+    peft_scheme: lora                           # LoRA fine-tuning
+    lora_tuning:
+      target_modules: [query_key_value]
+      adapter_dim: 32
+      alpha: 32
+      dropout: 0.1
+
+  optim:
+    name: fused_adam
+    lr: 5.0e-5
+    weight_decay: 0.01
+    sched:
+      name: cosine
+      warmup_steps: 50
+
+data:
+  train_ds:
+    file_path: /opt/ml/input/data/train/train.jsonl
+    max_seq_length: 4096
+    micro_batch_size: 2
+    global_batch_size: 16
+
+  validation_ds:
+    file_path: /opt/ml/input/data/validation/val.jsonl
+    max_seq_length: 4096
+    micro_batch_size: 2
+    global_batch_size: 8
+
+exp_manager:
+  exp_dir: /opt/ml/model/
+  name: ad_bidding_simulation
+  create_checkpoint_callback: true
+  checkpoint_callback_params:
+    monitor: val_loss
+    save_best_model: true

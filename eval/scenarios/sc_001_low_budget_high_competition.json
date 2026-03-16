@@ -1,0 +1,24 @@
+{
+  "scenario_id": "sc_001",
+  "category": "low_budget_high_competition",
+  "description": "Small daily budget ($50) competing on a high-demand search slot",
+  "user_message": "I have $50 left in my daily budget and need to bid on slot_search_001 which has very competitive bids. What should I bid to stay competitive without blowing my budget?",
+  "budget_remaining": 50.0,
+  "active_slots": [
+    {
+      "slot_id": "slot_search_001",
+      "platform": "google",
+      "placement": "search",
+      "expected_impressions": 5000,
+      "floor_price": 0.80
+    }
+  ],
+  "audience_segments": ["retargeting_30d", "high_intent"],
+  "ground_truth": {
+    "expected_tools": ["competitor_analyzer", "bid_calculator"],
+    "expected_intent": "auction",
+    "optimal_bids": {"slot_search_001": 1.20},
+    "acceptable_deviation_pct": 0.20,
+    "reasoning": "With $50 budget, max CPM spend is limited. Bid slightly above p50 competitor bid to win competitive share without over-spending."
+  }
+}

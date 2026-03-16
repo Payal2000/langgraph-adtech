@@ -1,0 +1,28 @@
+name: ad_bidding
+version: '1.0.0'
+config-version: 2
+
+profile: ad_bidding
+
+model-paths: ["models"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  ad_bidding:
+    staging:
+      +schema: STAGING
+      +materialized: view
+    intermediate:
+      +schema: INTERMEDIATE
+      +materialized: ephemeral
+    marts:
+      +schema: MARTS
+      +materialized: table
+
+vars:
+  mart_lookback_days: 30

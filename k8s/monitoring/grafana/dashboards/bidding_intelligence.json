@@ -1,0 +1,17 @@
+{
+  "title": "Bidding Intelligence",
+  "uid": "bidding-intel-001",
+  "tags": ["bidding", "revenue"],
+  "panels": [
+    {
+      "title": "Snowflake Mart Query Latency P95",
+      "type": "timeseries",
+      "targets": [{"expr": "histogram_quantile(0.95, rate(snowflake_query_latency_seconds_bucket[5m]))"}]
+    },
+    {
+      "title": "Avg Recommended Bid CPM by Platform",
+      "type": "bargauge",
+      "targets": [{"expr": "avg by (platform) (agent_recommended_bid_cpm)"}]
+    }
+  ]
+}

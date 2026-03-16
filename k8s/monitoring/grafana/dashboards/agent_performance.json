@@ -1,0 +1,27 @@
+{
+  "title": "Agent Performance",
+  "uid": "agent-perf-001",
+  "tags": ["agent", "langgraph"],
+  "panels": [
+    {
+      "title": "Request Latency P95 (seconds)",
+      "type": "timeseries",
+      "targets": [{"expr": "histogram_quantile(0.95, rate(agent_request_latency_seconds_bucket[5m]))"}]
+    },
+    {
+      "title": "Requests by Intent",
+      "type": "piechart",
+      "targets": [{"expr": "sum by (intent) (rate(agent_requests_total[5m]))"}]
+    },
+    {
+      "title": "Tool Calls by Tool",
+      "type": "timeseries",
+      "targets": [{"expr": "sum by (tool_name) (rate(tool_calls_total[5m]))"}]
+    },
+    {
+      "title": "Guardrail Flags",
+      "type": "timeseries",
+      "targets": [{"expr": "sum by (rule) (rate(guardrail_flags_total[5m]))"}]
+    }
+  ]
+}

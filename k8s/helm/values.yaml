@@ -1,0 +1,62 @@
+# Helm values for ad-bidding-agent deployment on EKS
+# Override per environment: values-prod.yaml
+
+replicaCount:
+  api: 3
+  redisUpdater: 2
+  snowflakeSink: 2
+
+image:
+  repository: 123456789012.dkr.ecr.us-east-1.amazonaws.com/ad-bidding-agent
+  tag: latest
+  pullPolicy: IfNotPresent
+
+api:
+  port: 8000
+  resources:
+    requests:
+      cpu: "500m"
+      memory: "1Gi"
+    limits:
+      cpu: "2"
+      memory: "4Gi"
+  env:
+    APP_ENV: production
+    LOG_LEVEL: INFO
+  autoscaling:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 20
+    targetCPUUtilizationPercentage: 70
+
+serviceAccount:
+  create: true
+  annotations:
+    eks.amazonaws.com/role-arn: "arn:aws:iam::123456789012:role/AdBiddingAgentRole"
+
+service:
+  type: ClusterIP
+  port: 8000
+
+ingress:
+  enabled: true
+  className: alb
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+  hosts:
+    - host: api.ad-bidding.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+
+redis:
+  enabled: false            # use AWS ElastiCache
+  externalHost: ""          # set to ElastiCache endpoint
+
+monitoring:
+  serviceMonitor:
+    enabled: true
+    interval: 30s
+    path: /metrics

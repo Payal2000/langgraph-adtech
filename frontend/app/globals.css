@@ -1,0 +1,258 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS — AdBid Intelligence Platform
+   ═══════════════════════════════════════════ */
+:root {
+  /* Surfaces */
+  --bg-page:        #F4F6F9;
+  --bg-surface:     #FFFFFF;
+  --bg-hover:       #F8F9FC;
+  --bg-selected:    #EEF3FF;
+
+  /* Borders */
+  --border:         #E3E7EF;
+  --border-strong:  #C8D0E0;
+
+  /* Blue — primary */
+  --blue-500:       #1A73E8;
+  --blue-100:       #E8F0FE;
+  --blue-700:       #1557B0;
+
+  /* Green — success/active */
+  --green-500:      #1E8E3E;
+  --green-100:      #E6F4EA;
+  --green-700:      #137333;
+
+  /* Amber — warning */
+  --amber-500:      #F9AB00;
+  --amber-100:      #FEF7E0;
+  --amber-700:      #B06000;
+
+  /* Red — error/loss */
+  --red-500:        #D93025;
+  --red-100:        #FCE8E6;
+  --red-700:        #A50E0E;
+
+  /* Text */
+  --text-primary:   #202124;
+  --text-secondary: #5F6368;
+  --text-tertiary:  #80868B;
+
+  /* Platform channel colors */
+  --channel-google:   #4285F4;
+  --channel-meta:     #0866FF;
+  --channel-amazon:   #FF9900;
+  --channel-ttd:      #007BFF;
+  --channel-linkedin: #0A66C2;
+
+  /* Layout */
+  --sidebar-width: 240px;
+  --topbar-height: 56px;
+}
+
+/* ═══════════════════════════════════════════
+   BASE RESET
+   ═══════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ═══════════════════════════════════════════
+   TYPOGRAPHY UTILITIES
+   ═══════════════════════════════════════════ */
+.num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+/* ═══════════════════════════════════════════
+   SCROLLBAR
+   ═══════════════════════════════════════════ */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}
+
+/* ═══════════════════════════════════════════
+   SHIMMER SKELETON
+   ═══════════════════════════════════════════ */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--border) 0px,
+    var(--bg-hover) 200px,
+    var(--border) 400px
+  );
+  background-size: 600px 100%;
+  animation: shimmer 1.5s linear infinite;
+  border-radius: 4px;
+}
+
+/* ═══════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════ */
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.7); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+
+@keyframes barGrow {
+  from { width: 0; }
+}
+
+@keyframes blinkCursor {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes fadePageIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes chartDraw {
+  from { stroke-dashoffset: 1000; }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* ═══════════════════════════════════════════
+   UTILITY CLASSES
+   ═══════════════════════════════════════════ */
+.status-dot-active {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--green-500);
+  animation: pulseDot 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.blink-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 13px;
+  background-color: var(--blue-500);
+  border-radius: 1px;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blinkCursor 1s step-end infinite;
+}
+
+.bar-fill {
+  animation: barGrow 800ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.page-content {
+  animation: fadePageIn 150ms ease forwards;
+}
+
+/* ═══════════════════════════════════════════
+   NAV ACTIVE INDICATOR
+   ═══════════════════════════════════════════ */
+.nav-active-indicator {
+  position: relative;
+}
+.nav-active-indicator::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 2px;
+  bottom: 2px;
+  width: 2px;
+  background-color: var(--blue-500);
+  border-radius: 0 2px 2px 0;
+}
+
+/* ═══════════════════════════════════════════
+   TABLE ROW HOVER
+   ═══════════════════════════════════════════ */
+.data-row {
+  transition: background-color 100ms ease;
+}
+.data-row:hover {
+  background-color: var(--bg-hover);
+}
+.data-row:hover .row-actions {
+  opacity: 1;
+}
+.row-actions {
+  opacity: 0;
+  transition: opacity 100ms ease;
+}
+
+/* ═══════════════════════════════════════════
+   FOCUS
+   ═══════════════════════════════════════════ */
+input:focus-visible,
+select:focus-visible,
+button:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--blue-500);
+  outline-offset: 1px;
+}
+
+/* ═══════════════════════════════════════════
+   RECHARTS OVERRIDES
+   ═══════════════════════════════════════════ */
+.recharts-tooltip-wrapper { outline: none !important; }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE: minimum 1280px
+   ═══════════════════════════════════════════ */
+.viewport-warning { display: none; }
+@media (max-width: 1279px) {
+  .viewport-warning {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    background: var(--bg-surface);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+    padding: 32px;
+    color: var(--text-primary);
+  }
+  .viewport-main { display: none !important; }
+}

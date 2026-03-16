@@ -1,0 +1,31 @@
+{
+  "scenario_id": "sc_051",
+  "category": "retargeting",
+  "description": "Retargeting campaign with high CVR audience, optimise for CPA",
+  "user_message": "We're running a retargeting campaign for 30-day website visitors. Budget is $500. Target CPA is $15. Which slots should we prioritise and what should we bid?",
+  "budget_remaining": 500.0,
+  "active_slots": [
+    {
+      "slot_id": "slot_display_007",
+      "platform": "meta",
+      "placement": "display",
+      "expected_impressions": 20000,
+      "floor_price": 0.25
+    },
+    {
+      "slot_id": "slot_social_003",
+      "platform": "meta",
+      "placement": "social",
+      "expected_impressions": 35000,
+      "floor_price": 0.40
+    }
+  ],
+  "audience_segments": ["retargeting_30d"],
+  "ground_truth": {
+    "expected_tools": ["slot_ranker", "roi_estimator", "budget_allocator"],
+    "expected_intent": "budget",
+    "optimal_bids": {"slot_display_007": 0.55, "slot_social_003": 0.70},
+    "acceptable_deviation_pct": 0.15,
+    "reasoning": "Retargeting audiences have 3-5x higher CVR. Social slot has higher volume but display has better CPM efficiency for this segment."
+  }
+}
